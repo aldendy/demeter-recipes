@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "demeter_recipes"
+authors = [
+    {name = "Alden Yellowhorse", email = "aldenyellowhorse@gmail.com"},
+	{name = "Peter Bingham", email = "nunyabusiness@fool.com"}
+]
+description = "An application for quickly storing recipes and planning meals"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["meal", "planning", "mealplanning", "meal-planning", "recipe", "organization", "organizer"]
+license = {file = "LICENSE"}
+classifiers = [
+    "Framework :: TKinter",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "tk",
+]
+dynamic = ["version"]
+
+[project.scripts]
+my-script = "my_package.module:function"
+
+# ... other project metadata fields as listed in:
+#     https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
