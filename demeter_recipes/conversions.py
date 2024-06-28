@@ -74,9 +74,14 @@ metric = {'g': 1,
           'mL': 1,
           }
 
+# This combines metric units with all of the other systems to facilitate
+# conversion between each system and metric. The assumption is that the user is
+# only using tools from one system and that systems are not mixed.
 us_volumes.update(metric)
 imperial_volumes.update(metric)
 
+# This is a combination of all conversion sets that is given to ingredient
+# objects and used for conversion
 unit_to_base = {'us': us_volumes,
                 'imperial': imperial_volumes,
                 }
