@@ -89,4 +89,5 @@ class Harvester:
 
 urls = ['https://www.allrecipes.com/recipe/24059/creamy-rice-pudding/']
 
-recipes = Harvester.get_recipes(urls)
+# recipes = Harvester.get_recipes(urls)
+scraper = scrape_me(urls[0])
