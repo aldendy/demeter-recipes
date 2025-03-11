@@ -7,15 +7,16 @@ Created on Thu Jun 27 21:35:30 2024
 This file implements various classes and datastructures used by the recipe code
 """
 
-import re, unicodedata
+import re
+import unicodedata
 from fractions import Fraction
 from datetime import date
 from recipe_scrapers import scrape_html
-from pint import Quantity, Unit
+from pint import UnitRegistry, Quantity, Unit
 
 
 ureg = UnitRegistry()
-ureg.load_definitions('cooking_units.txt')
+ureg.load_definitions('src\\cooking_units.txt')
 units = dir(ureg)
 
 
@@ -105,8 +106,9 @@ def to_float(value: str) -> float:
     if fraction is None:
         fraction = 0
     else:
+        pass
         
-    swap_table = {'1/2': }
+    swap_table = {'1/2': 0.5}
 
 
 class Ingredient:
@@ -125,8 +127,8 @@ class Ingredient:
             description = re.search('[ ,a-zA-Z]+$', text).group()
             measures = [word for word in description if word in units]
             if len(measures) > 0:
-                self.amount = 
-            self.item = 
+                self.amount = 'crazy'
+            self.item = 'also crazy'
 
     def __add__(self, other):
         """Define the result when ingredients are added. The result takes the
@@ -218,21 +220,15 @@ class Day:
         self.date = date
         self.meals = {}  # stores keys: meal names and values: list of recipes
 
-    def recipe_to_meal(self, meal_name: str, recipes):
-        """For a single recipe or list of recipes, add them to the list stored
-        in the meals dictionary. This assumes that the meal exists."""
+    def add_food(self, meal_name: str, recipes=[]):
+        """For a list of recipes, add it(them) to the list in the meals
+        dictionary. If the meal exists, add the recipe to the
+        meal. Otherwise, create a new meal name."""
         if isinstance(recipes, list):
             if meal_name in self.meals:
                 self.meals[meal_name] += recipes
-        else:
-            if meal_name in self.meals:
-                self.meals[meal_name].append(recipes)
-
-    def add_meal(self, meal_name: str, recipes=[]):
-        """Add a meal name (str). Optionally, add a single recipe or list of
-        recipes."""
-        self.meals[meal_name] = []
-        self.populate_meal(recipes)
+            else:
+                self.mealse[meal_name] = recipes
 
     def delete_meal(self, meal_name: str):
         """Remove a meal identified by name (str)."""

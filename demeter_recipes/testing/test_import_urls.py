@@ -10,8 +10,9 @@ recipe importers. They look capable but when it comes time to import, they have
 many failures in correctly gathering recipe data.
 """
 
-from urllib.request import urlopen
+
 from recipe_scrapers import scrape_html
+from src.harvester import Harvester
 from unittest import TestCase
 
 
@@ -49,10 +50,7 @@ class TestRecipe(TestCase):
         """Run the entire process of creating a recipe object. To conserve
         calls to the websites, later tests build off the information collected
         here."""
-        url = self.test_urls['all recipes rice pudding']
-        # retrieve the recipe webpage HTML
-        html = urlopen(url).read().decode("utf-8")
-
-        # pass the html alongside the url to our scrape_html function
-        self.recipe = scrape_html(html, org_url=url)
-        self.assertEqual(self.recipe.title(), 'Creamy Rice Pudding')
+        urls = [self.test_urls['all recipes rice pudding']]
+        h = Harvester()
+        recipes = h.get_recipes(urls)
+        self.assertEqual(recipes[0].title(), 'Creamy Rice Pudding')
